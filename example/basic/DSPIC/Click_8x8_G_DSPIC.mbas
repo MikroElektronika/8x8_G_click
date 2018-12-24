@@ -1,0 +1,106 @@
+'
+'Example for 8x8_G Click
+'
+'    Date          : Jan 2018.
+'    Author        : MikroE Team
+'
+'Test configuration dsPIC :
+'    
+'    MCU                : P33FJ256GP710A
+'    Dev. Board         : EasyPIC Fusion v7
+'    dsPIC Compiler ver : vCANT_FIND_VERSION
+'
+'---
+'
+'Description :
+'
+'The application is composed of three sections :
+'
+'- System Initialization - Intializes CS pin as output and SPI module
+'- Application Initialization - Driver intialization and default configration
+'of the 8x8 click board and settings speed scroll as Midium speed and refresh display.
+'- Application Task - (code snippet) - Shows one byte, then scrolls the string and image, every 1 sec.
+'
+'
+program Click_8x8_G_DSPIC
+
+include Click_8x8_G_types
+include Click_8x8_G_config
+
+dim
+    demoString as uint8_t[11] 
+    demoImgOn as uint8_t[8] 
+    demoImgOff as uint8_t[8] 
+    demoChar as char 
+    
+sub procedure systemInit() 
+
+    mikrobus_gpioInit(_MIKROBUS1, _MIKROBUS_CS_PIN, _GPIO_OUTPUT) 
+    mikrobus_spiInit(_MIKROBUS1, @_C8X8G_SPI_CFG[0]) 
+    Delay_100ms() 
+
+end sub
+
+sub procedure applicationInit() 
+
+    c8x8g_spiDriverInit(T_C8X8G_P(@_MIKROBUS1_GPIO), T_C8X8G_P(@_MIKROBUS1_SPI)) 
+    c8x8g_writeCmd(_C8X8G_DECODE_MODE_REG, _C8X8G_NO_DECODE) 
+    c8x8g_writeCmd(_C8X8G_INTENSITY_REG, _C8X8G_INTENSITY_15) 
+    c8x8g_writeCmd(_C8X8G_SCAN_LIMIT_REG, _C8X8G_DISPLAY_DIGIT_0_7) 
+    c8x8g_writeCmd(_C8X8G_SHUTDOWN_REG, _C8X8G_NORMAL_OPERATION) 
+    c8x8g_setSpeedScroll(_C8X8G_SPEED_MEDIUM) 
+    c8x8g_displayRefresh() 
+    Delay_100ms() 
+
+end sub
+
+sub procedure applicationTask() 
+
+    c8x8g_displayByte(demoChar) 
+    Delay_ms(1000) 
+    c8x8g_displayString(@demoString[0]) 
+    Delay_ms(1000) 
+    c8x8g_displayImage(@demoImgOn[0]) 
+    Delay_ms(500) 
+    c8x8g_displayImage(@demoImgOff[0]) 
+    Delay_ms(1000) 
+
+end sub
+
+main :
+    demoString[0] = " "
+    demoString[1] = "-"
+    demoString[2] = "M"
+    demoString[3] = "i"
+    demoString[4] = "k"
+    demoString[5] = "r"
+    demoString[6] = "o"
+    demoString[7] = "E"
+    demoString[8] = "-"
+    demoString[9] = " "
+    demoString[10] = 0
+    demoImgOn[0] = 0x08
+    demoImgOn[1] = 0x1c
+    demoImgOn[2] = 0x36
+    demoImgOn[3] = 0x22
+    demoImgOn[4] = 0x08
+    demoImgOn[5] = 0x1c
+    demoImgOn[6] = 0x36
+    demoImgOn[7] = 0x22
+    demoImgOff[0] = 0xf7
+    demoImgOff[1] = 0xe3
+    demoImgOff[2] = 0xc9
+    demoImgOff[3] = 0xdd
+    demoImgOff[4] = 0xf7
+    demoImgOff[5] = 0xe3
+    demoImgOff[6] = 0xc9
+    demoImgOff[7] = 0xdd
+    demoChar = "G"
+
+    systemInit() 
+    applicationInit() 
+    while (1) 
+        applicationTask() 
+    wend
+
+end.
