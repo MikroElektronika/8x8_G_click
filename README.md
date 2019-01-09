@@ -13,12 +13,6 @@
 
 ---
 
-- **Libstock** : https://libstock.mikroe.com/projects/view/2322/8x8-g-click
-- **HEXIWEAR** : ${HEXI_LINK}
-- **GitHub**   : ${GITHUB_LINK}
-
----
-
 ### Software Support
 
 We provide a library for the 8x8_G Click on our [LibStock](https://libstock.mikroe.com/projects/view/2322/8x8-g-click) 
@@ -77,27 +71,6 @@ development systems with no UART to USB interface available on the board. The
 terminal available in all Mikroelektronika 
 [compilers](http://shop.mikroe.com/compilers), or any other terminal application 
 of your choice, can be used to read the message.
-
----
-### Architectures Supported
-
-#### mikroC
-
-| STM | KIN | CEC | MSP | TIVA | PIC | PIC32 | DSPIC | AVR | FT90x |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| x | x | x | x | x | x | x | x | x | x |
-
-#### mikroBasic
-
-| STM | KIN | CEC | MSP | TIVA | PIC | PIC32 | DSPIC | AVR | FT90x |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| x | x | x | x | x | x | x | x | x | x |
-
-#### mikroPascal
-
-| STM | KIN | CEC | MSP | TIVA | PIC | PIC32 | DSPIC | AVR | FT90x |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| x | x | x | x | x | x | x | x | x | x |
 
 ---
 ---
